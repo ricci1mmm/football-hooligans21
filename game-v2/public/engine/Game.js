@@ -1,42 +1,35 @@
 class Game {
-    constructor(canvasId) {
-        this.canvas = document.getElementById(canvasId);
-        this.ctx = this.canvas.getContext('2d');
-        this.player = { x: 640, y: 360 };
+    constructor(canvasId){
+        this.canvas=document.getElementById(canvasId);
+        this.ctx=this.canvas.getContext('2d');
+
+        this.input=new Input();
+        this.player=new Player(640,360);
+        this.camera=new Camera();
+        this.map=new GameMap();
     }
 
-    start() {
+    start(){
         this.loop();
     }
 
-    update() {
-        // game logic will be added here
+    update(){
+        this.player.update(this.input);
+        this.camera.follow(this.player);
     }
 
-    render() {
-        const ctx = this.ctx;
-        ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-        ctx.fillStyle = '#1c1c1c';
-        ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-
-        ctx.fillStyle = '#1f6b3a';
-        ctx.fillRect(0, 500, this.canvas.width, 220);
-
-        ctx.fillStyle = '#ffffff';
-        ctx.beginPath();
-        ctx.arc(this.player.x, this.player.y, 24, 0, Math.PI * 2);
-        ctx.fill();
+    render(){
+        this.map.draw(this.ctx,this.camera);
+        this.player.draw(this.ctx,this.camera);
     }
 
-    loop() {
+    loop(){
         this.update();
         this.render();
-        requestAnimationFrame(() => this.loop());
+        requestAnimationFrame(()=>this.loop());
     }
 }
 
-window.onload = () => {
-    const game = new Game('game');
-    game.start();
+window.onload=()=>{
+    new Game('game').start();
 };
