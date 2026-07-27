@@ -1,0 +1,27 @@
+body {
+    margin:0;
+    background:#111;
+    font-family:Arial,sans-serif;
+    color:white;
+}
+
+.game-wrapper{
+    position:relative;
+    width:900px;
+    margin:auto;
+}
+
+canvas{
+    border:3px solid #333;
+    background:#202020;
+}
+
+.hud{
+    position:absolute;
+    top:20px;
+    left:20px;
+    background:rgba(0,0,0,.65);
+    padding:15px;
+    border-radius:10px;
+    line-height:28px;
+}
